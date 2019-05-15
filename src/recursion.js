@@ -91,6 +91,17 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+let totalBetween = [];
+if (x === y){
+  return [];
+}
+//push x+ 1 into an array until x === y;
+if (x === y-1){
+  return totalBetween;
+}
+  totalBetween.push(x + 1);
+  //chain push with concat to loop until x ==y-1
+  return  totalBetween.concat(range(x+1, y));
 };
 
 // 7. Compute the exponent of a number.
