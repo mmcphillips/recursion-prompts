@@ -90,17 +90,28 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
-let totalBetween = [];
-if (x === y){
-  return [];
-}
-//push x+ 1 into an array until x === y;
-if (x === y-1){
-  return totalBetween;
-}
-  totalBetween.push(x + 1);
-  //chain push with concat to loop until x ==y-1
-  return  totalBetween.concat(range(x+1, y));
+  let totalBetween = [];
+  if (x === y){
+    return [];
+  }
+  //push x+ 1 into an array until x === y;
+  if (x < y) {
+    if (x === y-1){
+      return totalBetween;
+    }
+    totalBetween.push(x + 1);
+    //chain push with concat to loop until x ==y-1
+    return  totalBetween.concat(range(x+1, y));
+  }
+  //deal with cases of x > y.
+  if (x > y){
+    if (x === y+1){
+      return totalBetween;
+    }
+    totalBetween.push(x-1);
+    return totalBetween.concat(range(x-1,y));
+  }
+
 };
 
 // 7. Compute the exponent of a number.
@@ -109,6 +120,19 @@ if (x === y-1){
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  //multiply base against base while modifying exp until exp is zero
+  //for positive Integers
+  if (exp === 0){
+    return 1;
+  }
+  //positive cases
+  if (exp > 0){
+    return base * exponent(base, exp-1);
+  }
+  //negative cases
+  if (exp < 0){
+    return 1 / (base / exponent(base, exp+1));
+  }
 };
 
 // 8. Determine if a number is a power of two.
@@ -116,10 +140,20 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  //set base case for n^2
+  if (n === 1){
+    return true;
+  }
+  //set base case for n isn't a power of two
+  if (n < 1){
+    return false;
+  }
+  return powerOfTwo(n/2);
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+
 };
 
 // 10. Write a function that determines if a string is a palindrome.
